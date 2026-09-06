@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>demo5 · ReAct Agent 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:"Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif;background:#f3f6fb;color:#1e293b;display:flex;flex-direction:column;height:100vh;overflow:hidden;--ac:#4f6ef7;--ac2:#8b5cf6;--acg:rgba(79,110,247,.32)}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px 36px 14px;border-bottom:1px solid #e2e8f0;background:#ffffffd9;z-index:5}
+.t{display:flex;align-items:center;gap:14px}
+.chip{font-family:Consolas,monospace;font-weight:700;font-size:15px;color:#fff;background:linear-gradient(135deg,var(--ac),var(--ac2));padding:9px 14px;border-radius:10px;box-shadow:0 4px 12px var(--acg)}
+h1{font-size:21px;font-weight:700}
+.sub{font-size:12.5px;color:#64748b;margin-top:2px}
+nav{display:flex;gap:8px;font-size:12.5px;flex-wrap:wrap}
+nav a{color:#475569;text-decoration:none;padding:6px 12px;border:1px solid #e2e8f0;border-radius:999px;background:#fff}
+nav a:hover{border-color:var(--ac);color:var(--ac)}
+nav .cur{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border-color:transparent}
+.canvas{flex:1;position:relative;overflow:auto;padding:36px 48px 80px;background-image:radial-gradient(#d9e2ee 1px,transparent 1px);background-size:24px 24px}
+#wires{position:absolute;top:0;left:0;pointer-events:none}
+.row{display:flex;align-items:center}
+.kids{display:flex;flex-direction:column;gap:18px;margin-left:32px}
+.node{position:relative;border-radius:10px;white-space:nowrap;text-align:left}
+.root{font-size:19px;font-weight:800;color:#fff;padding:20px 26px;border-radius:16px;background:linear-gradient(135deg,var(--ac),var(--ac2));box-shadow:0 10px 26px var(--acg);letter-spacing:1px;text-align:center;line-height:1.4}
+.l1{font-size:14.5px;font-weight:700;color:#fff;background:var(--b);padding:10px 18px;box-shadow:0 4px 10px rgba(15,23,42,.10)}
+.l2{font-size:13px;color:#334155;background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--b);padding:8px 13px;box-shadow:0 2px 6px rgba(15,23,42,.05);line-height:1.55}
+.l2 b{color:var(--b);font-family:Consolas,"Microsoft YaHei",monospace;font-size:12.5px}
+.l2 .d{display:block;font-size:11.5px;color:#64748b;margin-top:2px;white-space:normal;max-width:430px}
+.node code{font-family:Consolas,monospace;font-size:.92em;background:#eef2f7;color:#0f172a;padding:1px 5px;border-radius:4px}
+.has-kids{cursor:pointer}
+.has-kids::after{content:"−";display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;margin-left:10px;border-radius:50%;background:rgba(255,255,255,.28);font-size:13px;font-weight:700;vertical-align:1px}
+.collapsed.has-kids::after{content:"+"}
+.hidden{display:none}
+footer{display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding:12px 36px;border-top:1px solid #e2e8f0;background:#fff;font-size:12px;color:#64748b}
+footer .lab{font-weight:700;color:#475569;margin-right:6px}
+footer code{background:#eef2f7;padding:3px 8px;border-radius:6px;font-family:Consolas,monospace;color:#0f172a}
+footer a{color:var(--ac);text-decoration:none;margin-right:10px}
+footer a:hover{text-decoration:underline}
+@media print{body{height:auto;overflow:visible}.canvas{overflow:visible}}
+</style>
+</head>
+<body>
+<header>
+  <div class="t">
+    <div class="chip">demo5</div>
+    <div>
+      <h1>ReAct Agent 思维导图</h1>
+      <div class="sub">从“显式规划”走向 ReAct 自由循环 —— 在灵活与可控之间找平衡</div>
+    </div>
+  </div>
+  <nav>
+    <a href="../demo4/README.md">← demo4</a>
+    <a class="cur">demo5</a>
+    <a href="../demo6/mindmap.html">demo6 →</a>
+  </nav>
+</header>
+
+<div class="canvas">
+  <svg id="wires"></svg>
+  <div class="row">
+    <div class="node root">demo5<br>ReAct Agent</div>
+    <div class="kids">
+
+      <div class="row" style="--b:#4f6ef7">
+        <div class="node l1">本节目标</div>
+        <div class="kids">
+          <div class="row"><div class="node l2">理解 ReAct 如何在<b>灵活性</b>与<b>可控性</b>之间找平衡</div></div>
+          <div class="row"><div class="node l2">学会同时维护 <code>messages</code> 和结构化 <code>state</code></div></div>
+          <div class="row"><div class="node l2">看懂带多工具、多轮观察的 Agent 主循环</div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#0891b2">
+        <div class="node l1">文件结构</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>react_demo.py</b><span class="d">程序入口：多轮对话循环，输入 exit / quit 结束</span></div></div>
+          <div class="row"><div class="node l2"><b>agent.py</b><span class="d">run_react_agent() 主循环 + 消息组装与裁剪</span></div></div>
+          <div class="row"><div class="node l2"><b>tools.py</b><span class="d">工具定义 build_tools() 与执行 execute_tool_call()</span></div></div>
+          <div class="row"><div class="node l2"><b>state.py</b><span class="d">create_agent_state() / update_state_from_tool_result()</span></div></div>
+          <div class="row"><div class="node l2"><b>llm.py / config.py</b><span class="d">模型调用、API Key、循环次数与历史轮数配置</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#059669">
+        <div class="node l1">核心机制</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>run_react_agent()</b><span class="d">程序不再写死下一步，模型根据上下文自行决定是否继续调用工具</span></div></div>
+          <div class="row"><div class="node l2"><b>build_runtime_messages()</b><span class="d">system 消息 + 任务状态摘要 + 裁剪后的历史 messages</span></div></div>
+          <div class="row"><div class="node l2"><b>update_state_from_tool_result()</b><span class="d">把最近一次工具结果同步进 state，形成观察反哺</span></div></div>
+          <div class="row"><div class="node l2"><b>trim_messages()</b><span class="d">只保留最近 MAX_HISTORY_TURNS 轮（每轮约 4 条消息）</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#d97706">
+        <div class="node l1">双状态设计</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>messages</b><span class="d">给模型看：会话记忆 + assistant/tool 消息历史</span></div></div>
+          <div class="row"><div class="node l2"><b>state</b><span class="d">给程序判断：结构化任务事实</span></div></div>
+          <div class="row"><div class="node l2">state 字段<span class="d">current_goal / last_tool_name / last_created_path / last_read_content / completed / loop_count</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#e11d48">
+        <div class="node l1">内置工具</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>create_text_file</b><span class="d">创建文本文件（从单一写文件扩展而来）</span></div></div>
+          <div class="row"><div class="node l2"><b>read_text_file</b><span class="d">读取文件内容，供模型自我检查</span></div></div>
+          <div class="row"><div class="node l2"><b>list_files</b><span class="d">列出生成目录中的文件</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#7c3aed">
+        <div class="node l1">主循环流程</div>
+        <div class="kids">
+          <div class="row"><div class="node l2">① 组装消息并调用 LLM（携带 tools payload）</div></div>
+          <div class="row"><div class="node l2">② 返回 tool_calls → 先写入 assistant 意图消息</div></div>
+          <div class="row"><div class="node l2">③ 逐个执行工具 → 结果写回 role=tool 消息并同步 state</div></div>
+          <div class="row"><div class="node l2">④ continue 进入下一轮，再次观察再决策</div></div>
+          <div class="row"><div class="node l2">⑤ 无 tool_calls → 自然语言答复，completed=True</div></div>
+          <div class="row"><div class="node l2">超过 MAX_AGENT_LOOPS → 抛错终止，建议细化任务重试</div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#db2777">
+        <div class="node l1">学习要点</div>
+        <div class="kids">
+          <div class="row"><div class="node l2">demo4 显式状态机 → demo5 自由循环式 Agent</div></div>
+          <div class="row"><div class="node l2">结构没有消失，而是藏进运行时与状态里</div></div>
+          <div class="row"><div class="node l2">练习<span class="d">生成文件后再读出检查 / 列出文件再修改总结 / 新增一个工具验证主循环稳定性</span></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div><span class="lab">运行方式</span><code>python demo5/react_demo.py</code></div>
+  <div><span class="lab">相关文件</span><a href="README.md">README.md</a><a href="react_demo.py">react_demo.py</a><a href="agent.py">agent.py</a><a href="tools.py">tools.py</a><a href="state.py">state.py</a></div>
+  <div>💡 点击节点可折叠 / 展开</div>
+</footer>
+
+<script>
+const canvas=document.querySelector('.canvas'),svg=document.getElementById('wires');
+function draw(){
+  const cr=canvas.getBoundingClientRect();
+  const tb=document.querySelector('.canvas > .row').getBoundingClientRect();
+  svg.setAttribute('width',Math.ceil(tb.right-cr.left+canvas.scrollLeft)+40);
+  svg.setAttribute('height',Math.ceil(tb.bottom-cr.top+canvas.scrollTop)+40);
+  let out='';
+  document.querySelectorAll('.kids').forEach(k=>{
+    const p=k.closest('.row')?.querySelector('.node');
+    if(!p)return;
+    k.querySelectorAll(':scope > .row > .node').forEach(c=>{
+      const pr=p.getBoundingClientRect(),r=c.getBoundingClientRect();
+      const sx=canvas.scrollLeft,sy=canvas.scrollTop;
+      const x1=pr.right-cr.left+sx,y1=pr.top+pr.height/2-cr.top+sy;
+      const x2=r.left-cr.left+sx,y2=r.top+r.height/2-cr.top+sy;
+      const mx=(x1+x2)/2;
+      const col=getComputedStyle(c).getPropertyValue('--b').trim()||'#94a3b8';
+      out+='<path d="M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linecap="round" opacity=".78"/>';
+    });
+  });
+  svg.innerHTML=out;
+}
+document.querySelectorAll('.node').forEach(n=>{
+  const kids=n.parentElement.querySelector(':scope > .kids');
+  if(kids){
+    n.classList.add('has-kids');
+    n.addEventListener('click',()=>{n.classList.toggle('collapsed');kids.classList.toggle('hidden');draw();});
+  }
+});
+window.addEventListener('resize',draw);
+window.addEventListener('load',draw);
+draw();
+function centerRoot(){const r=document.querySelector('.root');canvas.scrollTop=r.offsetTop+r.offsetHeight/2-canvas.clientHeight/2;canvas.scrollLeft=0;}
+centerRoot();
+</script>
+</body>
+</html>

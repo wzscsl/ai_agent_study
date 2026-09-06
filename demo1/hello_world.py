@@ -12,7 +12,7 @@ DeepSeek Agent Hello World
 
 并设置环境变量：
     PowerShell:
-        $env:DEEPSEEK_API_KEY="你的 API Key"
+        $env:API_KEY="你的 API Key"
 """
 
 from __future__ import annotations
@@ -23,11 +23,11 @@ import os
 import requests
 
 
-# DeepSeek模型API地址： https://api.deepseek.com/chat/completions
-API_URL = "https://api.deepseek.com/chat/completions"
+# 智谱 BigModel API 地址（GLM 编码套餐 OpenAI Chat 协议的完整端点）
+API_URL = "https://open.bigmodel.cn/api/coding/paas/v4/chat/completions"
 
-# 选用deepseek-v4-flash模型
-MODEL_NAME = "deepseek-v4-flash"
+# 选用 glm-5.3 模型
+MODEL_NAME = "glm-5.3"
 
 
 def build_messages() -> list[dict[str, str]]:
@@ -52,7 +52,7 @@ def call_llm(api_key: str, messages: list[dict[str, str]]) -> dict:
     调用 DeepSeek Chat Completions 接口。
 
     参数：
-    - api_key: 从环境变量中读取到的 DeepSeek API Key
+    - api_key: 从环境变量中读取到的  Key
     - messages: 按 chat 格式组织好的消息列表
 
     返回：
@@ -61,7 +61,7 @@ def call_llm(api_key: str, messages: list[dict[str, str]]) -> dict:
     headers = {
         "Content-Type": "application/json",
         # DeepSeek 使用 Bearer Token 鉴权
-        "Authorization": f"Bearer {api_key}",
+        "Authorization": f"Bearer {api_key}"
     }
 
     payload = {
@@ -95,11 +95,11 @@ def call_llm(api_key: str, messages: list[dict[str, str]]) -> dict:
 
 def main() -> None:
     """程序入口。"""
-    api_key = os.getenv("DEEPSEEK_API_KEY")
+    api_key = os.getenv("API_KEY")
     if not api_key:
         raise RuntimeError(
-            "缺少环境变量 DEEPSEEK_API_KEY，请先在 PowerShell 中执行："
-            ' $env:DEEPSEEK_API_KEY="你的 API Key"'
+            "缺少环境变量 API_KEY，请先在 PowerShell 中执行："
+            ' $env:API_KEY="你的 API Key"'
         )
 
     messages = build_messages()

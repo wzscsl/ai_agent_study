@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>demo8 · Workflow Agent 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:"Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif;background:#f3f6fb;color:#1e293b;display:flex;flex-direction:column;height:100vh;overflow:hidden;--ac:#d97706;--ac2:#f59e0b;--acg:rgba(217,119,6,.30)}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px 36px 14px;border-bottom:1px solid #e2e8f0;background:#ffffffd9;z-index:5}
+.t{display:flex;align-items:center;gap:14px}
+.chip{font-family:Consolas,monospace;font-weight:700;font-size:15px;color:#fff;background:linear-gradient(135deg,var(--ac),var(--ac2));padding:9px 14px;border-radius:10px;box-shadow:0 4px 12px var(--acg)}
+h1{font-size:21px;font-weight:700}
+.sub{font-size:12.5px;color:#64748b;margin-top:2px}
+nav{display:flex;gap:8px;font-size:12.5px;flex-wrap:wrap}
+nav a{color:#475569;text-decoration:none;padding:6px 12px;border:1px solid #e2e8f0;border-radius:999px;background:#fff}
+nav a:hover{border-color:var(--ac);color:var(--ac)}
+nav .cur{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border-color:transparent}
+.canvas{flex:1;position:relative;overflow:auto;padding:36px 48px 80px;background-image:radial-gradient(#d9e2ee 1px,transparent 1px);background-size:24px 24px}
+#wires{position:absolute;top:0;left:0;pointer-events:none}
+.row{display:flex;align-items:center}
+.kids{display:flex;flex-direction:column;gap:18px;margin-left:32px}
+.node{position:relative;border-radius:10px;white-space:nowrap;text-align:left}
+.root{font-size:19px;font-weight:800;color:#fff;padding:20px 26px;border-radius:16px;background:linear-gradient(135deg,var(--ac),var(--ac2));box-shadow:0 10px 26px var(--acg);letter-spacing:1px;text-align:center;line-height:1.4}
+.l1{font-size:14.5px;font-weight:700;color:#fff;background:var(--b);padding:10px 18px;box-shadow:0 4px 10px rgba(15,23,42,.10)}
+.l2{font-size:13px;color:#334155;background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--b);padding:8px 13px;box-shadow:0 2px 6px rgba(15,23,42,.05);line-height:1.55}
+.l2 b{color:var(--b);font-family:Consolas,"Microsoft YaHei",monospace;font-size:12.5px}
+.l2 .d{display:block;font-size:11.5px;color:#64748b;margin-top:2px;white-space:normal;max-width:430px}
+.node code{font-family:Consolas,monospace;font-size:.92em;background:#eef2f7;color:#0f172a;padding:1px 5px;border-radius:4px}
+.has-kids{cursor:pointer}
+.has-kids::after{content:"−";display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;margin-left:10px;border-radius:50%;background:rgba(255,255,255,.28);font-size:13px;font-weight:700;vertical-align:1px}
+.collapsed.has-kids::after{content:"+"}
+.hidden{display:none}
+footer{display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding:12px 36px;border-top:1px solid #e2e8f0;background:#fff;font-size:12px;color:#64748b}
+footer .lab{font-weight:700;color:#475569;margin-right:6px}
+footer code{background:#eef2f7;padding:3px 8px;border-radius:6px;font-family:Consolas,monospace;color:#0f172a}
+footer a{color:var(--ac);text-decoration:none;margin-right:10px}
+footer a:hover{text-decoration:underline}
+@media print{body{height:auto;overflow:visible}.canvas{overflow:visible}}
+</style>
+</head>
+<body>
+<header>
+  <div class="t">
+    <div class="chip">demo8</div>
+    <div>
+      <h1>Workflow Agent 思维导图</h1>
+      <div class="sub">从自由循环到固定编排 —— 节点 + 显式路由的可预测工作流</div>
+    </div>
+  </div>
+  <nav>
+    <a href="../demo7/mindmap.html">← demo7</a>
+    <a class="cur">demo8</a>
+    <a href="../demo9/mindmap.html">demo9 →</a>
+  </nav>
+</header>
+
+<div class="canvas">
+  <svg id="wires"></svg>
+  <div class="row">
+    <div class="node root">demo8<br>Workflow Agent</div>
+    <div class="kids">
+
+      <div class="row" style="--b:#d97706">
+        <div class="node l1">核心理念</div>
+        <div class="kids">
+          <div class="row"><div class="node l2">任务拆成<b>固定节点</b>，节点通过 <code>action</code> 决定下一跳</div></div>
+          <div class="row"><div class="node l2">节点职责单一，更适合扩展与调试</div></div>
+          <div class="row"><div class="node l2">适合需要<b>稳定步骤、清晰审计链路</b>的任务</div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#0891b2">
+        <div class="node l1">框架层 framework/</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>Workflow</b><span class="d">最小执行器：执行节点 → 读取 action → 跳转下一跳；max_steps 防死循环</span></div></div>
+          <div class="row"><div class="node l2"><b>BaseWorkflowNode</b><span class="d">run() 执行当前节点；connect(action, node) / route(action) 管理路由</span></div></div>
+          <div class="row"><div class="node l2"><b>WorkflowContext</b><span class="d">goal + shared 共享字典 + logs 执行日志</span></div></div>
+          <div class="row"><div class="node l2"><b>HitlContext</b><span class="d">带人工打断字段的上下文（demo9 复用）</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#059669">
+        <div class="node l1">六大节点 nodes.py</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>ClassifyNode</b><span class="d">LLM 输出 JSON：intent(summary/edit)、target_file、search_query、reason</span></div></div>
+          <div class="row"><div class="node l2"><b>InspectNode</b><span class="d">列目录 + 关键字搜索 + 目标文件快照</span></div></div>
+          <div class="row"><div class="node l2"><b>PlanNode</b><span class="d">收敛为精确 patch plan：old_text / new_text / expected_occurrences / rationale</span></div></div>
+          <div class="row"><div class="node l2"><b>ApplyNode</b><span class="d">有 old/new 则替换，否则整文件写入</span></div></div>
+          <div class="row"><div class="node l2"><b>VerifyNode</b><span class="d">读回文件，确认变更结果</span></div></div>
+          <div class="row"><div class="node l2"><b>ReportNode</b><span class="d">汇总日志与结果，生成用户可读的中文总结</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#e11d48">
+        <div class="node l1">路由拓扑</div>
+        <div class="kids">
+          <div class="row"><div class="node l2">classify → inspect</div></div>
+          <div class="row"><div class="node l2">inspect → plan（edit 修改类）/ → report（summary 总结类）</div></div>
+          <div class="row"><div class="node l2">plan → apply → verify → report</div></div>
+          <div class="row"><div class="node l2">action == "done" → workflow 结束</div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#7c3aed">
+        <div class="node l1">分层设计</div>
+        <div class="kids">
+          <div class="row"><div class="node l2">框架能力（workflow / node / context）与业务节点（nodes.py）分离</div></div>
+          <div class="row"><div class="node l2">复用 demo6：<code>ask_llm_json</code> / <code>ask_llm_text</code></div></div>
+          <div class="row"><div class="node l2"><b>tools.py</b><span class="d">文件观察与修改工具（list / search / read / replace / write）</span></div></div>
+          <div class="row"><div class="node l2"><b>workflow_demo.py</b><span class="d">入口：build_workflow() 串联节点并循环接收目标</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#0d9488">
+        <div class="node l1">对比与练习</div>
+        <div class="kids">
+          <div class="row"><div class="node l2">demo7 自由循环 → demo8 显式节点、可预测流程</div></div>
+          <div class="row"><div class="node l2">练习：新增一个节点（如 risk check）</div></div>
+          <div class="row"><div class="node l2">练习：同一任务对比“自由 agent”与“固定 workflow”</div></div>
+          <div class="row"><div class="node l2">练习：让 VerifyNode 多做一步结果总结</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div><span class="lab">运行方式</span><code>python demo8/workflow_demo.py</code></div>
+  <div><span class="lab">相关文件</span><a href="README.md">README.md</a><a href="workflow_demo.py">workflow_demo.py</a><a href="framework/workflow.py">framework/</a><a href="nodes.py">nodes.py</a><a href="tools.py">tools.py</a></div>
+  <div>💡 点击节点可折叠 / 展开</div>
+</footer>
+
+<script>
+const canvas=document.querySelector('.canvas'),svg=document.getElementById('wires');
+function draw(){
+  const cr=canvas.getBoundingClientRect();
+  const tb=document.querySelector('.canvas > .row').getBoundingClientRect();
+  svg.setAttribute('width',Math.ceil(tb.right-cr.left+canvas.scrollLeft)+40);
+  svg.setAttribute('height',Math.ceil(tb.bottom-cr.top+canvas.scrollTop)+40);
+  let out='';
+  document.querySelectorAll('.kids').forEach(k=>{
+    const p=k.closest('.row')?.querySelector('.node');
+    if(!p)return;
+    k.querySelectorAll(':scope > .row > .node').forEach(c=>{
+      const pr=p.getBoundingClientRect(),r=c.getBoundingClientRect();
+      const sx=canvas.scrollLeft,sy=canvas.scrollTop;
+      const x1=pr.right-cr.left+sx,y1=pr.top+pr.height/2-cr.top+sy;
+      const x2=r.left-cr.left+sx,y2=r.top+r.height/2-cr.top+sy;
+      const mx=(x1+x2)/2;
+      const col=getComputedStyle(c).getPropertyValue('--b').trim()||'#94a3b8';
+      out+='<path d="M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linecap="round" opacity=".78"/>';
+    });
+  });
+  svg.innerHTML=out;
+}
+document.querySelectorAll('.node').forEach(n=>{
+  const kids=n.parentElement.querySelector(':scope > .kids');
+  if(kids){
+    n.classList.add('has-kids');
+    n.addEventListener('click',()=>{n.classList.toggle('collapsed');kids.classList.toggle('hidden');draw();});
+  }
+});
+window.addEventListener('resize',draw);
+window.addEventListener('load',draw);
+draw();
+function centerRoot(){const r=document.querySelector('.root');canvas.scrollTop=r.offsetTop+r.offsetHeight/2-canvas.clientHeight/2;canvas.scrollLeft=0;}
+centerRoot();
+</script>
+</body>
+</html>

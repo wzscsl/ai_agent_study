@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Agent 进阶学习计划表（26 周）</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif;background:#f3f6fb;color:#1e293b;min-height:100vh;background-image:radial-gradient(#e2e8f0 1px,transparent 1px);background-size:26px 26px}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 28px 80px}
+header{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:20px 26px;box-shadow:0 6px 18px rgba(15,23,42,.06);position:sticky;top:12px;z-index:10}
+.t{display:flex;align-items:center;gap:14px}
+.chip{font-family:Consolas,monospace;font-weight:700;font-size:14px;color:#fff;background:linear-gradient(135deg,#4f6ef7,#a855f7);padding:8px 13px;border-radius:10px;letter-spacing:1px}
+h1{font-size:20px;font-weight:800}
+.sub{font-size:12px;color:#64748b;margin-top:2px}
+.bar-wrap{display:flex;align-items:center;gap:12px;min-width:280px;flex:1;max-width:430px}
+.bar{flex:1;height:10px;border-radius:999px;background:#eef2f7;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#4f6ef7,#a855f7);transition:width .3s}
+.bar-num{font-size:12px;color:#475569;white-space:nowrap;font-weight:600}
+.reset{border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:12px;padding:6px 12px;border-radius:8px;cursor:pointer}
+.reset:hover{border-color:#e11d48;color:#e11d48}
+.note{display:flex;gap:10px;align-items:flex-start;background:#fffbea;border:1px solid #fde68a;border-radius:12px;padding:12px 16px;font-size:12.5px;color:#92400e;margin:18px 0;line-height:1.7}
+h2.sec{font-size:15px;font-weight:800;color:#334155;margin:26px 0 12px;display:flex;align-items:center;gap:8px}
+h2.sec::after{content:"";flex:1;height:1px;background:#e2e8f0}
+.timeline{display:flex;gap:4px;border-radius:12px;overflow:hidden}
+.tl{padding:10px 12px;color:#fff;font-size:12px;line-height:1.5;min-width:0}
+.tl b{display:block;font-size:12.5px;white-space:nowrap}
+.tl span{opacity:.85;white-space:nowrap}
+.tl.t0{background:#64748b;flex:1}
+.tl.t1{background:#4f6ef7;flex:6}
+.tl.t2{background:#0d9488;flex:5}
+.tl.t3{background:#7c3aed;flex:10}
+.tl.t4{background:#e11d48;flex:4}
+.rhythm{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.r-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;font-size:12.5px;color:#475569;line-height:1.7}
+.r-card b{color:#1e293b;display:block;margin-bottom:3px;font-size:13px}
+.phase{background:#fff;border:1px solid #e2e8f0;border-left:6px solid var(--pc);border-radius:14px;padding:22px 26px;margin:20px 0;box-shadow:0 4px 14px rgba(15,23,42,.05)}
+.p-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.p-num{font-family:Consolas,monospace;font-weight:700;font-size:12px;color:#fff;background:var(--pc);padding:5px 10px;border-radius:7px}
+.p-head h2{font-size:17px;font-weight:800;color:#1e293b}
+.p-weeks{font-size:12px;color:#64748b;background:#f1f5f9;padding:4px 10px;border-radius:999px}
+.p-prog{margin-left:auto;font-size:12px;font-weight:700;color:var(--pc)}
+.p-goal{font-size:13px;color:#475569;margin:10px 0 16px;line-height:1.7}
+.p-goal b{color:var(--pc)}
+.weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.week{background:#f8fafc;border:1px solid #e5eaf1;border-radius:12px;padding:14px 16px}
+.w-head{font-size:13px;font-weight:800;color:var(--pc);margin-bottom:10px;padding-bottom:8px;border-bottom:1px dashed #dbe3ee}
+.task{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:#334155;line-height:1.65;margin:8px 0;cursor:pointer}
+.task input{width:15px;height:15px;margin-top:2px;accent-color:var(--pc);flex:none;cursor:pointer}
+.task.done span{text-decoration:line-through;color:#94a3b8}
+.output{margin-top:12px;font-size:11.5px;color:#0f172a;background:#fff;border:1px dashed var(--pc);border-radius:8px;padding:7px 11px;line-height:1.6}
+.output::before{content:"📦 产出：";font-weight:700;color:var(--pc)}
+.milestone{margin-top:16px;font-size:12.5px;font-weight:700;color:var(--pc);background:color-mix(in srgb,var(--pc) 8%,#fff);border:1px solid color-mix(in srgb,var(--pc) 35%,#fff);border-radius:10px;padding:10px 14px;line-height:1.6}
+.milestone::before{content:"🏁 里程碑："}
+.qa{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;font-size:12.5px;color:#475569;line-height:2}
+.qa li{margin-left:18px}
+footer{text-align:center;font-size:11.5px;color:#94a3b8;margin-top:34px;line-height:1.8}
+@media (max-width:720px){.tl span{display:none}.tl b{white-space:normal}}
+@media print{header{position:static}.bar-wrap,.reset{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="t">
+    <div class="chip">ROADMAP</div>
+    <div>
+      <h1>AI Agent 进阶学习计划表</h1>
+      <div class="sub">前置：已完成 agent-tutorial demo1–11 · 周期：26 周（约 6 个月）</div>
+    </div>
+  </div>
+  <div class="bar-wrap">
+    <div class="bar"><i id="obar"></i></div>
+    <span class="bar-num" id="onum">0 / 42</span>
+  </div>
+  <button class="reset" id="reset">重置进度</button>
+</header>
+
+<div class="note">⏱ 本计划按<b>每周 10 小时</b>编排（建议：工作日 5 × 1.5h 动手写码 + 周末 2.5h 复盘总结）。如果你每周可投入的时间不同，按比例伸缩周数即可，但<b>阶段顺序不要打乱</b>。进度勾选会自动保存在浏览器里。</div>
+
+<h2 class="sec">全程总览</h2>
+<div class="timeline">
+  <div class="tl t0"><b>阶段 0 · 准备</b><span>第 1 周</span></div>
+  <div class="tl t1"><b>阶段 1 · 工程化补课</b><span>第 2–7 周</span></div>
+  <div class="tl t2"><b>阶段 2 · 主流生态</b><span>第 8–12 周</span></div>
+  <div class="tl t3"><b>阶段 3 · 毕业项目</b><span>第 13–22 周</span></div>
+  <div class="tl t4"><b>阶段 4 · 求职冲刺</b><span>第 23–26 周</span></div>
+</div>
+
+<div class="rhythm">
+  <div class="r-card"><b>📌 贯穿习惯 ①</b>每周写一篇学习日志：做了什么、卡在哪、怎么解决的。</div>
+  <div class="r-card"><b>📌 贯穿习惯 ②</b>每阶段一篇公开博客（全程至少 3 篇），教是最好的学。</div>
+  <div class="r-card"><b>📌 贯穿习惯 ③</b>学任何新框架先问一句：它解决了我手写框架（demo6）的什么痛点？</div>
+  <div class="r-card"><b>🎯 最终目标</b>一个公开上线的 coding agent 项目 + 可量化的评估报告 + 3 篇博客。</div>
+</div>
+
+<h2 class="sec">分阶段计划</h2>
+
+<section class="phase" style="--pc:#64748b">
+  <div class="p-head"><span class="p-num">阶段 0</span><h2>准备与自测</h2><span class="p-weeks">第 1 周</span><span class="p-prog" data-pg>0/4</span></div>
+  <p class="p-goal"><b>目标：</b>把已有成果资产化，并确认 demo1–11 的核心机制真正内化了。</p>
+  <div class="weeks">
+    <div class="week">
+      <div class="w-head">第 1 周 · 盘点</div>
+      <label class="task"><input type="checkbox" data-id="w1a"><span>把 demo1–11 整理进 git 仓库，补齐 README 与运行说明</span></label>
+      <label class="task"><input type="checkbox" data-id="w1b"><span>白板自测：不看代码复述 demo5 主循环 / demo6 五层抽象 / demo8 节点路由，讲不清的重读源码</span></label>
+      <label class="task"><input type="checkbox" data-id="w1c"><span>注册 Langfuse（或本地部署），备好各 LLM API Key 与预算</span></label>
+      <label class="task"><input type="checkbox" data-id="w1d"><span>建立学习日志文档，此后每周记录</span></label>
+      <div class="output">结构清晰的代码仓库 + 学习日志模板</div>
+    </div>
+  </div>
+</section>
+
+<section class="phase" style="--pc:#4f6ef7">
+  <div class="p-head"><span class="p-num">阶段 1</span><h2>工程化补课</h2><span class="p-weeks">第 2–7 周</span><span class="p-prog" data-pg>0/12</span></div>
+  <p class="p-goal"><b>目标：</b>补上教程为教学清晰而跳过的生产级能力——让所有核心 demo <b>可观测、可评估、有记忆、够可靠</b>。这是招聘方最看重的一段。</p>
+  <div class="weeks">
+    <div class="week">
+      <div class="w-head">第 2–3 周 · 可观测性</div>
+      <label class="task"><input type="checkbox" data-id="w2a"><span>给 demo6 Runtime 的每次 LLM / 工具调用埋点，接入 Langfuse 或 OpenTelemetry</span></label>
+      <label class="task"><input type="checkbox" data-id="w2b"><span>记录输入输出、延迟、token 消耗与成本</span></label>
+      <label class="task"><input type="checkbox" data-id="w2c"><span>在 trace 里定位一次“模型选错工具”的现场并写复盘</span></label>
+      <div class="output">一张能看清 Agent 完整决策链的 trace 截图</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 4–5 周 · 评估（Evals）</div>
+      <label class="task"><input type="checkbox" data-id="w4a"><span>给 demo10 建 20–50 题测试集（知识库内、外问题都要有）</span></label>
+      <label class="task"><input type="checkbox" data-id="w4b"><span>接入 Ragas，跑 hit rate / MRR / faithfulness 等指标</span></label>
+      <label class="task"><input type="checkbox" data-id="w4c"><span>对比不同 chunk / overlap / Top-K 参数，形成实验表格</span></label>
+      <label class="task"><input type="checkbox" data-id="w4d"><span>给 demo7 建 10 个代码修改任务并人工标注成功与否</span></label>
+      <div class="output">一份 RAG + coding agent 评估报告</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 6 周 · 记忆系统</div>
+      <label class="task"><input type="checkbox" data-id="w6a"><span>为 demo6 实现文件记忆（AGENTS.md 思路：跨会话的持久偏好与事实）</span></label>
+      <label class="task"><input type="checkbox" data-id="w6b"><span>试用 mem0 或向量记忆方案，与文件记忆、trim_messages 对比</span></label>
+      <div class="output">三种记忆方案的对比笔记</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 7 周 · 可靠性与安全</div>
+      <label class="task"><input type="checkbox" data-id="w7a"><span>结构化输出校验 + 失败重试（从 demo8 的 ask_llm_json 改造）</span></label>
+      <label class="task"><input type="checkbox" data-id="w7b"><span>补齐超时、错误处理与工具并发调用</span></label>
+      <label class="task"><input type="checkbox" data-id="w7c"><span>构造 prompt injection 攻击样例，实践防护（输入隔离、工具白名单）</span></label>
+      <div class="output">加固后的框架 + 安全实验记录</div>
+    </div>
+  </div>
+  <div class="milestone">所有核心 demo 可观测、可评估。发布<b>博客 1《给手写 Agent 框架加上 trace 与 eval》</b>。</div>
+</section>
+
+<section class="phase" style="--pc:#0d9488">
+  <div class="p-head"><span class="p-num">阶段 2</span><h2>主流生态</h2><span class="p-weeks">第 8–12 周</span><span class="p-prog" data-pg>0/9</span></div>
+  <p class="p-goal"><b>目标：</b>用工业级框架重写自己的 Agent，理解设计取舍；深入 MCP 生态；读生产级源码。你已经从零造过轮子，这是学框架的最佳状态。</p>
+  <div class="weeks">
+    <div class="week">
+      <div class="w-head">第 8–10 周 · LangGraph 重写</div>
+      <label class="task"><input type="checkbox" data-id="w8a"><span>掌握 StateGraph、checkpointer、中断恢复等核心概念</span></label>
+      <label class="task"><input type="checkbox" data-id="w8b"><span>用 LangGraph（或 OpenAI Agents SDK）重写 demo7 coding agent</span></label>
+      <label class="task"><input type="checkbox" data-id="w8c"><span>重写 demo8 workflow 与 demo9 HITL，体验原生 interrupt 与手写 ApprovalNode 的差异</span></label>
+      <label class="task"><input type="checkbox" data-id="w8d"><span>写对比分析：手写框架 vs LangGraph，各自做对了什么</span></label>
+      <div class="output">LangGraph 版 demo7–9 + 对比分析</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 11 周 · MCP 深入</div>
+      <label class="task"><input type="checkbox" data-id="w11a"><span>学习 remote transport（HTTP）与鉴权机制，对比 demo11 的 stdio 模式</span></label>
+      <label class="task"><input type="checkbox" data-id="w11b"><span>写 1–2 个实用 MCP server（如查 SQLite、调内部 API）</span></label>
+      <div class="output">可复用的 MCP server</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 12 周 · 源码与经典</div>
+      <label class="task"><input type="checkbox" data-id="w12a"><span>精读 Aider 源码——你 demo7 思路的完整生产形态</span></label>
+      <label class="task"><input type="checkbox" data-id="w12b"><span>浏览 OpenHands，看多智能体协作与沙箱设计</span></label>
+      <label class="task"><input type="checkbox" data-id="w12c"><span>读 Anthropic《Building Effective Agents》与 MCP 规范原文</span></label>
+      <div class="output">源码阅读笔记（架构图 + 关键决策）</div>
+    </div>
+  </div>
+  <div class="milestone">发布<b>博客 2《我手写的 Agent 框架 vs LangGraph：设计取舍》</b>。</div>
+</section>
+
+<section class="phase" style="--pc:#7c3aed">
+  <div class="p-head"><span class="p-num">阶段 3</span><h2>毕业项目：可部署的 Coding Agent</h2><span class="p-weeks">第 13–22 周</span><span class="p-prog" data-pg>0/10</span></div>
+  <p class="p-goal"><b>目标：</b>把 demo7–10 的能力合成一个<b>能部署、可评估、有 trace</b> 的真实项目。面试中“我做了、部署了、量化了效果”和“我跟着教程写了一遍”是两个物种。</p>
+  <div class="weeks">
+    <div class="week">
+      <div class="w-head">第 13–14 周 · MVP</div>
+      <label class="task"><input type="checkbox" data-id="w13a"><span>FastAPI 后端 + LangGraph Agent 核心骨架</span></label>
+      <label class="task"><input type="checkbox" data-id="w13b"><span>迁移工具集：list / search / read / replace / write（沿用 demo7 设计）</span></label>
+      <div class="output">命令行 / API 可跑的 MVP</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 15–16 周 · HITL 与 Git</div>
+      <label class="task"><input type="checkbox" data-id="w15a"><span>前端 diff 审查界面：批准 / 拒绝 / 填写修改意见（demo9 的产品化）</span></label>
+      <label class="task"><input type="checkbox" data-id="w15b"><span>git 集成：自动分支、提交、一键回滚</span></label>
+      <div class="output">可视化的人工审查闭环</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 17–18 周 · RAG 与自证</div>
+      <label class="task"><input type="checkbox" data-id="w17a"><span>项目文档问答能力（复用 demo10 完整链路）</span></label>
+      <label class="task"><input type="checkbox" data-id="w17b"><span>沙箱中执行 pytest 并回读结果，让 Agent“改完自证”</span></label>
+      <div class="output">能读文档、跑测试、验证修改的 Agent</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 19–20 周 · 质量保障</div>
+      <label class="task"><input type="checkbox" data-id="w19a"><span>trace 全覆盖 + 成本与延迟看板</span></label>
+      <label class="task"><input type="checkbox" data-id="w19b"><span>建立评估套件：任务集 + 成功率 / 成本指标基线</span></label>
+      <div class="output">一份带数字的质量报告</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 21–22 周 · 发布</div>
+      <label class="task"><input type="checkbox" data-id="w21a"><span>Docker 化并部署到云服务器或容器平台</span></label>
+      <label class="task"><input type="checkbox" data-id="w21b"><span>打磨 README、录制演示 GIF / 视频</span></label>
+      <div class="output">公开可访问、可试用的项目</div>
+    </div>
+  </div>
+  <div class="milestone">项目公开上线。发布<b>博客 3《从教程到产品：我的 coding agent 之旅》</b>（含评估数据）。</div>
+</section>
+
+<section class="phase" style="--pc:#e11d48">
+  <div class="p-head"><span class="p-num">阶段 4</span><h2>求职冲刺</h2><span class="p-weeks">第 23–26 周</span><span class="p-prog" data-pg>0/7</span></div>
+  <p class="p-goal"><b>目标：</b>把 6 个月的积累转化为 offer。方向：Agent 应用开发 / LLM 工程师 / AI 基础设施。</p>
+  <div class="weeks">
+    <div class="week">
+      <div class="w-head">第 23 周 · 简历与叙事</div>
+      <label class="task"><input type="checkbox" data-id="w23a"><span>简历用 STAR 法量化项目成果（成功率提升 X%、单任务成本 Y 元）</span></label>
+      <label class="task"><input type="checkbox" data-id="w23b"><span>打磨一分钟项目电梯陈述</span></label>
+      <div class="output">一页简历 + 项目一页纸介绍</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 24 周 · 面试演练</div>
+      <label class="task"><input type="checkbox" data-id="w24a"><span>逐题演练下方高频面试清单，写出自己的答案</span></label>
+      <label class="task"><input type="checkbox" data-id="w24b"><span>做一次模拟面试并录音复盘</span></label>
+      <div class="output">面试题答案库</div>
+    </div>
+    <div class="week">
+      <div class="w-head">第 25–26 周 · 投递与迭代</div>
+      <label class="task"><input type="checkbox" data-id="w25a"><span>投递目标岗位，同步跟进内推渠道</span></label>
+      <label class="task"><input type="checkbox" data-id="w25b"><span>每次面试后复盘，迭代答案与项目讲述</span></label>
+      <label class="task"><input type="checkbox" data-id="w25c"><span>（并行）给 Aider / LangGraph 等项目提一个小 PR，积累开源印记</span></label>
+      <div class="output">offer，或一份明确的下一轮改进清单</div>
+    </div>
+  </div>
+  <div class="milestone">拿到 offer；若市场不顺，用复盘结论回到阶段 3 迭代项目再战。</div>
+</section>
+
+<h2 class="sec">高频面试题清单（第 24 周逐题演练）</h2>
+<div class="qa">
+  <ul>
+    <li>ReAct 自由循环、固定 Workflow、HITL 各适合什么场景？如何取舍？（你的 demo5→8→9 就是答案线）</li>
+    <li>Coding Agent 为什么必须“先观察后修改”？如何用工具设计和提示词约束它？</li>
+    <li>完整讲一遍 RAG 链路（加载→切分→向量化→入库→检索→生成），每个环节有哪些调优手段？</li>
+    <li>如何评估一个 Agent 的好坏？轨迹评估和结果评估分别怎么做？</li>
+    <li>如何控制 Agent 的成本与延迟？（上下文管理、模型分级、缓存、并行工具）</li>
+    <li>MCP 解决了什么问题？和直接写本地函数有什么本质区别？</li>
+    <li>Agent 的安全隐患有哪些？prompt injection 怎么防？</li>
+  </ul>
+</div>
+
+<footer>计划基于 agent-tutorial（demo1–11）衔接制定 · 勾选进度自动保存在浏览器 localStorage · 配套思维导图见各 demo 目录下的 mindmap.html</footer>
+
+</div>
+
+<script>
+const KEY='agent-plan-progress';
+const boxes=[...document.querySelectorAll('input[type=checkbox][data-id]')];
+const obar=document.getElementById('obar'),onum=document.getElementById('onum');
+const phases=[...document.querySelectorAll('.phase')];
+function save(){localStorage.setItem(KEY,JSON.stringify(boxes.filter(b=>b.checked).map(b=>b.dataset.id)));update();}
+function update(){
+  const done=boxes.filter(b=>b.checked).length;
+  obar.style.width=(done/boxes.length*100)+'%';
+  onum.textContent=done+' / '+boxes.length;
+  phases.forEach(p=>{
+    const pb=[...p.querySelectorAll('input[type=checkbox]')];
+    const d=pb.filter(b=>b.checked).length;
+    p.querySelector('[data-pg]').textContent=d+'/'+pb.length;
+    pb.forEach(b=>b.closest('.task').classList.toggle('done',b.checked));
+  });
+}
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'[]');boxes.forEach(b=>{if(saved.includes(b.dataset.id))b.checked=true;});}catch(e){}
+boxes.forEach(b=>b.addEventListener('change',save));
+document.getElementById('reset').addEventListener('click',()=>{
+  if(confirm('确定要清空所有勾选进度吗？')){boxes.forEach(b=>b.checked=false);save();}
+});
+update();
+</script>
+</body>
+</html>

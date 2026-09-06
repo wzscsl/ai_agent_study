@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>demo7 · Coding Agent 思维导图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:"Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif;background:#f3f6fb;color:#1e293b;display:flex;flex-direction:column;height:100vh;overflow:hidden;--ac:#059669;--ac2:#10b981;--acg:rgba(5,150,105,.30)}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px 36px 14px;border-bottom:1px solid #e2e8f0;background:#ffffffd9;z-index:5}
+.t{display:flex;align-items:center;gap:14px}
+.chip{font-family:Consolas,monospace;font-weight:700;font-size:15px;color:#fff;background:linear-gradient(135deg,var(--ac),var(--ac2));padding:9px 14px;border-radius:10px;box-shadow:0 4px 12px var(--acg)}
+h1{font-size:21px;font-weight:700}
+.sub{font-size:12.5px;color:#64748b;margin-top:2px}
+nav{display:flex;gap:8px;font-size:12.5px;flex-wrap:wrap}
+nav a{color:#475569;text-decoration:none;padding:6px 12px;border:1px solid #e2e8f0;border-radius:999px;background:#fff}
+nav a:hover{border-color:var(--ac);color:var(--ac)}
+nav .cur{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border-color:transparent}
+.canvas{flex:1;position:relative;overflow:auto;padding:36px 48px 80px;background-image:radial-gradient(#d9e2ee 1px,transparent 1px);background-size:24px 24px}
+#wires{position:absolute;top:0;left:0;pointer-events:none}
+.row{display:flex;align-items:center}
+.kids{display:flex;flex-direction:column;gap:18px;margin-left:32px}
+.node{position:relative;border-radius:10px;white-space:nowrap;text-align:left}
+.root{font-size:19px;font-weight:800;color:#fff;padding:20px 26px;border-radius:16px;background:linear-gradient(135deg,var(--ac),var(--ac2));box-shadow:0 10px 26px var(--acg);letter-spacing:1px;text-align:center;line-height:1.4}
+.l1{font-size:14.5px;font-weight:700;color:#fff;background:var(--b);padding:10px 18px;box-shadow:0 4px 10px rgba(15,23,42,.10)}
+.l2{font-size:13px;color:#334155;background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--b);padding:8px 13px;box-shadow:0 2px 6px rgba(15,23,42,.05);line-height:1.55}
+.l2 b{color:var(--b);font-family:Consolas,"Microsoft YaHei",monospace;font-size:12.5px}
+.l2 .d{display:block;font-size:11.5px;color:#64748b;margin-top:2px;white-space:normal;max-width:430px}
+.node code{font-family:Consolas,monospace;font-size:.92em;background:#eef2f7;color:#0f172a;padding:1px 5px;border-radius:4px}
+.has-kids{cursor:pointer}
+.has-kids::after{content:"−";display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;margin-left:10px;border-radius:50%;background:rgba(255,255,255,.28);font-size:13px;font-weight:700;vertical-align:1px}
+.collapsed.has-kids::after{content:"+"}
+.hidden{display:none}
+footer{display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding:12px 36px;border-top:1px solid #e2e8f0;background:#fff;font-size:12px;color:#64748b}
+footer .lab{font-weight:700;color:#475569;margin-right:6px}
+footer code{background:#eef2f7;padding:3px 8px;border-radius:6px;font-family:Consolas,monospace;color:#0f172a}
+footer a{color:var(--ac);text-decoration:none;margin-right:10px}
+footer a:hover{text-decoration:underline}
+@media print{body{height:auto;overflow:visible}.canvas{overflow:visible}}
+</style>
+</head>
+<body>
+<header>
+  <div class="t">
+    <div class="chip">demo7</div>
+    <div>
+      <h1>Coding Agent 思维导图</h1>
+      <div class="sub">把 demo6 框架落到代码任务 —— 先观察、后修改的本地 coding agent</div>
+    </div>
+  </div>
+  <nav>
+    <a href="../demo6/mindmap.html">← demo6</a>
+    <a class="cur">demo7</a>
+    <a href="../demo8/mindmap.html">demo8 →</a>
+  </nav>
+</header>
+
+<div class="canvas">
+  <svg id="wires"></svg>
+  <div class="row">
+    <div class="node root">demo7<br>Coding Agent</div>
+    <div class="kids">
+
+      <div class="row" style="--b:#059669">
+        <div class="node l1">核心理念</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>先观察、后修改</b><span class="d">coding agent 必须先看代码，再决定是否修改</span></div></div>
+          <div class="row"><div class="node l2"><b>受限工作区</b><span class="d">只允许操作 demo7/project_workspace</span></div></div>
+          <div class="row"><div class="node l2"><b>安全替换</b><span class="d">expected_occurrences 校验匹配次数，防误改</span></div></div>
+          <div class="row"><div class="node l2"><b>最小改动</b><span class="d">小规模、精确、可验证的 patch</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#0891b2">
+        <div class="node l1">架构复用</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>CodingAgentRuntime</b><span class="d">继承 demo6 AgentRuntime，不复制框架</span></div></div>
+          <div class="row"><div class="node l2">只通过覆写少数方法做场景化定制</div></div>
+          <div class="row"><div class="node l2"><b>coding_agent_demo.py</b><span class="d">入口：构建工具表 + 启动多轮对话</span></div></div>
+          <div class="row"><div class="node l2"><b>coding_runtime.py / coding_tools.py</b><span class="d">运行时定制与代码工具实现</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#4f6ef7">
+        <div class="node l1">三处定制</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>系统提示词</b><span class="d">先观察再修改；未看到真实工具结果不许声称已修改；工作区只限 project_workspace</span></div></div>
+          <div class="row"><div class="node l2"><b>create_state()</b><span class="d">把 workspace_dir 注入 shared_context</span></div></div>
+          <div class="row"><div class="node l2"><b>build_runtime_message()</b><span class="d">调度消息明确要求：修改前先定位并读取相关代码</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#d97706">
+        <div class="node l1">观察型工具</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>list_files</b><span class="d">先看目录里有什么</span></div></div>
+          <div class="row"><div class="node l2"><b>search_text</b><span class="d">按关键字搜索代码内容</span></div></div>
+          <div class="row"><div class="node l2"><b>search_files_by_name</b><span class="d">按文件名定位文件</span></div></div>
+          <div class="row"><div class="node l2"><b>read_text_file</b><span class="d">读具体内容，确认目标后再动手</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#e11d48">
+        <div class="node l1">修改型工具</div>
+        <div class="kids">
+          <div class="row"><div class="node l2"><b>replace_text_in_file</b><span class="d">精确替换 old_text → new_text，校验 expected_occurrences</span></div></div>
+          <div class="row"><div class="node l2"><b>write_text_file</b><span class="d">创建或重写完整文件（谨慎使用）</span></div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#7c3aed">
+        <div class="node l1">标准工作流</div>
+        <div class="kids">
+          <div class="row"><div class="node l2">① 先看目录 list_files</div></div>
+          <div class="row"><div class="node l2">② 搜文件或关键字 search_*</div></div>
+          <div class="row"><div class="node l2">③ 读具体内容 read_text_file</div></div>
+          <div class="row"><div class="node l2">④ 做精确修改 replace / write</div></div>
+        </div>
+      </div>
+
+      <div class="row" style="--b:#0d9488">
+        <div class="node l1">实战与练习</div>
+        <div class="kids">
+          <div class="row"><div class="node l2">示例工作区<span class="d">project_workspace/ 下的 app.py、settings.py、utils.py、README.md</span></div></div>
+          <div class="row"><div class="node l2">练习：给 <code>greet_user</code> 的空名字增加更友好处理</div></div>
+          <div class="row"><div class="node l2">练习：把 <code>DEFAULT_THEME</code> 从 light 改成 dark</div></div>
+          <div class="row"><div class="node l2">练习：让 Agent 定位并总结某段业务逻辑的作用</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div><span class="lab">运行方式</span><code>python demo7/coding_agent_demo.py</code></div>
+  <div><span class="lab">相关文件</span><a href="README.md">README.md</a><a href="coding_agent_demo.py">coding_agent_demo.py</a><a href="coding_runtime.py">coding_runtime.py</a><a href="coding_tools.py">coding_tools.py</a><a href="project_workspace/README.md">project_workspace/</a></div>
+  <div>💡 点击节点可折叠 / 展开</div>
+</footer>
+
+<script>
+const canvas=document.querySelector('.canvas'),svg=document.getElementById('wires');
+function draw(){
+  const cr=canvas.getBoundingClientRect();
+  const tb=document.querySelector('.canvas > .row').getBoundingClientRect();
+  svg.setAttribute('width',Math.ceil(tb.right-cr.left+canvas.scrollLeft)+40);
+  svg.setAttribute('height',Math.ceil(tb.bottom-cr.top+canvas.scrollTop)+40);
+  let out='';
+  document.querySelectorAll('.kids').forEach(k=>{
+    const p=k.closest('.row')?.querySelector('.node');
+    if(!p)return;
+    k.querySelectorAll(':scope > .row > .node').forEach(c=>{
+      const pr=p.getBoundingClientRect(),r=c.getBoundingClientRect();
+      const sx=canvas.scrollLeft,sy=canvas.scrollTop;
+      const x1=pr.right-cr.left+sx,y1=pr.top+pr.height/2-cr.top+sy;
+      const x2=r.left-cr.left+sx,y2=r.top+r.height/2-cr.top+sy;
+      const mx=(x1+x2)/2;
+      const col=getComputedStyle(c).getPropertyValue('--b').trim()||'#94a3b8';
+      out+='<path d="M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linecap="round" opacity=".78"/>';
+    });
+  });
+  svg.innerHTML=out;
+}
+document.querySelectorAll('.node').forEach(n=>{
+  const kids=n.parentElement.querySelector(':scope > .kids');
+  if(kids){
+    n.classList.add('has-kids');
+    n.addEventListener('click',()=>{n.classList.toggle('collapsed');kids.classList.toggle('hidden');draw();});
+  }
+});
+window.addEventListener('resize',draw);
+window.addEventListener('load',draw);
+draw();
+function centerRoot(){const r=document.querySelector('.root');canvas.scrollTop=r.offsetTop+r.offsetHeight/2-canvas.clientHeight/2;canvas.scrollLeft=0;}
+centerRoot();
+</script>
+</body>
+</html>
