@@ -11,7 +11,15 @@ from demo6.framework import get_api_key
 from demo8.config import MAX_WORKFLOW_STEPS, WORKSPACE_DIR
 from demo8.example_context import CodeWorkflowContext
 from demo8.framework import Workflow
-from demo8.nodes import ApplyNode, ClassifyNode, InspectNode, PlanNode, ReportNode, VerifyNode
+from demo8.nodes import (
+    ApplyNode,
+    ClassifyNode,
+    InspectNode,
+    PlanNode,
+    ReportNode,
+    RiskCheckNode,
+    VerifyNode,
+)
 
 
 def build_workflow() -> Workflow:
@@ -25,6 +33,8 @@ def build_workflow() -> Workflow:
     classify = ClassifyNode(name="classify")
     inspect = InspectNode(name="inspect")
     plan = PlanNode(name="plan")
+    # 练习一：在 plan 和 apply 之间插入一道风险检查。
+    risk_check = RiskCheckNode(name="risk_check")
     apply_node = ApplyNode(name="apply")
     verify = VerifyNode(name="verify")
     report = ReportNode(name="report")
@@ -32,7 +42,10 @@ def build_workflow() -> Workflow:
     classify.connect("inspect", inspect)
     inspect.connect("plan", plan)
     inspect.connect("report", report)
-    plan.connect("apply", apply_node)
+    plan.connect("risk_check", risk_check)
+    risk_check.connect("apply", apply_node)
+    # 风险检查不通过时不执行修改，直接跳去汇报拦截原因。
+    risk_check.connect("report", report)
     apply_node.connect("verify", verify)
     verify.connect("report", report)
 

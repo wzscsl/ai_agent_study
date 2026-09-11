@@ -23,6 +23,9 @@ class CodeWorkflowContext(WorkflowContext):
     search_hits: list[dict[str, Any]] = field(default_factory=list)
     file_snapshot: dict[str, Any] = field(default_factory=dict)
     patch_plan: dict[str, Any] = field(default_factory=dict)
+    risk_assessment: dict[str, Any] = field(default_factory=dict)
     apply_result: dict[str, Any] = field(default_factory=dict)
     verification_result: dict[str, Any] = field(default_factory=dict)
+    verification_checks: dict[str, Any] = field(default_factory=dict)
+    verification_summary: str = ""
     report: str = ""
