@@ -9,7 +9,7 @@ if __package__ in {None, ""}:
 from demo6.framework import create_runtime, get_api_key
 
 import demo6.builtin_tools as builtin_tools
-from demo6.config import GENERATED_FILES_DIR, MAX_HISTORY_TURNS
+from demo6.config import GENERATED_FILES_DIR, MAX_AGENT_LOOPS, MAX_HISTORY_TURNS
 
 
 def main() -> None:
@@ -25,9 +25,12 @@ def main() -> None:
     api_key = get_api_key()
     # 这里展示的是第六课推荐的“最小使用方式”：
     # 只给 create_runtime(...) 一个工具模块，它会自动帮我们注册带 @tool 的函数。
+    # 练习二：把收紧后的循环上限从 config 接进来，
+    # 让“最多循环几轮”成为和会话轮数一样可配置的环境参数。
     runtime, message_store = create_runtime(
         api_key=api_key,
         tool_modules=[builtin_tools],
+        max_loops=MAX_AGENT_LOOPS,
         max_turns=MAX_HISTORY_TURNS,
     )
 
@@ -35,6 +38,7 @@ def main() -> None:
     print("你可以试试：帮我生成一份 Python 学习计划，保存成 markdown 文件，然后再读出来帮我检查一下格式。")
     print(f"工具操作目录：{GENERATED_FILES_DIR}")
     print(f"当前会保留最近 {MAX_HISTORY_TURNS} 轮会话记忆。")
+    print(f"单次任务最多执行 {MAX_AGENT_LOOPS} 轮工具循环，超过即终止。")
 
     while True:
         user_goal = input("\n你：").strip()

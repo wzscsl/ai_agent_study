@@ -23,6 +23,11 @@ class AgentRuntime:
         max_loops: int = 8,
         system_message: dict[str, str] | None = None,
     ) -> None:
+        # 练习二：更严格的循环次数限制。
+        # 一方面在构造期就拒绝非法配置（>=1 才有意义），
+        # 另一方面把实际生效的限制值写进超时报错，方便排查。
+        if not isinstance(max_loops, int) or max_loops < 1:
+            raise ValueError("max_loops 必须是 >= 1 的整数，否则运行时一次循环都无法执行。")
         self.api_key = api_key
         self.tool_registry = tool_registry
         self.max_loops = max_loops
@@ -196,4 +201,7 @@ class AgentRuntime:
             message_store.append({"role": "assistant", "content": final_answer})
             return final_answer
 
-        raise RuntimeError("超过最大循环次数，任务仍未完成。可以把任务描述得更具体一点再重试。")
+        raise RuntimeError(
+            f"已达到最大循环次数限制（{self.max_loops} 轮），任务仍未完成。"
+            "可以把任务描述得更具体、或拆成更小的任务再重试。"
+        )

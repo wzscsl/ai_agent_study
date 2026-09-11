@@ -173,6 +173,62 @@ def list_files(relative_dir: str) -> dict[str, Any]:
     }
 
 
+@tool(
+    description=(
+        "Delete a text file under demo6/generated_files. "
+        "Use this when the user asks to remove or clean up a previously created file."
+    ),
+    parameter_descriptions={
+        "relative_path": "Relative file path under demo6/generated_files.",
+        "missing_ok": "If True, deleting a missing file is treated as success instead of an error.",
+    },
+)
+def delete_text_file(relative_path: str, missing_ok: bool = False) -> dict[str, Any]:
+    """
+    删除文本文件（练习一：新增一个自己的 @tool）。
+
+    missing_ok 是一个带默认值的参数：
+    装饰器生成 schema 时会自动把它标成“非必填”，
+    模型只有需要改变默认行为时才用传它。
+    """
+    try:
+        target_path = resolve_safe_path(relative_path)
+    except ValueError as exc:
+        return {"ok": False, "error": str(exc), "relative_path": relative_path}
+
+    if not target_path.exists():
+        if missing_ok:
+            return {
+                "ok": True,
+                "path": str(target_path),
+                "deleted": False,
+                "note": "文件不存在，已按 missing_ok=True 视为成功。",
+            }
+        return {
+            "ok": False,
+            "error": "文件不存在。",
+            "path": str(target_path),
+        }
+
+    if target_path.is_dir():
+        return {
+            "ok": False,
+            "error": "只能删除文件，不能删除目录。",
+            "path": str(target_path),
+        }
+
+    target_path.unlink()
+
+    return {
+        "ok": True,
+        "path": str(target_path),
+        "deleted": True,
+        "context_updates": {
+            "last_deleted_relative_path": relative_path,
+        },
+    }
+
+
 def register_builtin_file_tools(registry: ToolRegistry) -> None:
     """
     注册第六课示例中用到的内置文件工具。
@@ -184,4 +240,5 @@ def register_builtin_file_tools(registry: ToolRegistry) -> None:
         create_text_file,
         read_text_file,
         list_files,
+        delete_text_file,
     )
