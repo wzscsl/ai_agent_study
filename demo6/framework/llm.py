@@ -6,18 +6,18 @@ from typing import Any
 import requests
 import json
 
-DEFAULT_API_URL = "https://api.deepseek.com/chat/completions"
-DEFAULT_MODEL_NAME = "deepseek-v4-flash"
+DEFAULT_API_URL = "https://open.bigmodel.cn/api/coding/paas/v4/chat/completions"
+DEFAULT_MODEL_NAME = "glm-5.3"
 DEFAULT_MAX_COMPLETION_TOKENS = 3000
 
 
 def get_api_key() -> str:
     """读取 API Key。"""
-    api_key = os.getenv("DEEPSEEK_API_KEY")
+    api_key = os.getenv("API_KEY")
     if not api_key:
         raise RuntimeError(
-            "缺少环境变量 DEEPSEEK_API_KEY，请先在 PowerShell 中执行："
-            ' $env:DEEPSEEK_API_KEY="你的 API Key"'
+            "缺少环境变量 API_KEY，请先在 PowerShell 中执行："
+            ' $env:API_KEY="你的 API Key"'
         )
     return api_key
 
