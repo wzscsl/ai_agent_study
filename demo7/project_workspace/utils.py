@@ -1,7 +1,7 @@
-def greet_user(name: str) -> str:
-    if not name:
+def greet_user(name: str | None) -> str:
+    if not name or not name.strip():
         return "Hello, friend! It's nice to meet you!"
-    return f"Hello, {name}!"
+    return f"Hello, {name.strip()}!"
 
 
 def calculate_discount(price: float, is_vip: bool) -> float:
