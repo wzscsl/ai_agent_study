@@ -8,7 +8,7 @@ KNOWLEDGE_BASE_DIR = BASE_DIR / "knowledge_base"
 
 PGVECTOR_PORT = 5432
 PGVECTOR_DATABASE = "agent_demo"
-PGVECTOR_USER = "ljx"
+PGVECTOR_USER = "zxt"
 PGVECTOR_HOST = os.getenv("PGVECTOR_HOST") # 公网访问地址
 PGVECTOR_PASSWORD = os.getenv("PGVECTOR_PASSWORD") # 用户密码
 
