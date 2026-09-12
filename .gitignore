@@ -1,3 +1,6 @@
 __pycache__/
 *.py[cod]
 
+
+# 本地私密启动脚本（内含 API Key，绝不提交）
+demo10/run_demo10.bat
