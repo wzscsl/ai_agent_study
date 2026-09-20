@@ -10,7 +10,14 @@ if str(PROJECT_ROOT) not in sys.path:
 from demo6.framework import McpServerConfig, create_runtime, get_api_key
 
 
-def create_mcp_system_message() -> dict[str, str]:
+def create_mcp_system_message(neutral: bool = False) -> dict[str, str]:
+    if neutral:
+        # 练习三：去掉“优先调用天气工具/不要伪造”等约束后的中性提示词。
+        # 工具仍然注册、模型仍然可见，只是不再被显式引导使用。
+        return {
+            "role": "system",
+            "content": "你是一个助手。回答使用简洁中文。",
+        }
     return {
         "role": "system",
         "content": (
@@ -25,6 +32,7 @@ def create_mcp_system_message() -> dict[str, str]:
 def main() -> None:
     api_key = get_api_key()
     server_path = Path(__file__).resolve().parent / "weather_server.py"
+    neutral = "--neutral" in sys.argv
 
     runtime, message_store = create_runtime(
         api_key=api_key,
@@ -37,12 +45,14 @@ def main() -> None:
         ],
         max_loops=5,
         max_turns=6,
-        system_message=create_mcp_system_message(),
+        system_message=create_mcp_system_message(neutral=neutral),
     )
 
     print("MCP Agent Demo 已启动。输入 exit 或 quit 结束。")
     print("你可以试试：帮我查一下杭州今天的天气，并给我一个出行建议。")
     print("本节课的天气数据来自 demo11/weather_server.py 里的 MCP Server。")
+    if neutral:
+        print("[练习三] 当前运行在中性提示词模式：未要求模型优先调用天气工具。")
 
     while True:
         user_goal = input("\n你：").strip()
