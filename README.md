@@ -50,19 +50,19 @@ $env:PGVECTOR_PASSWORD="你的数据库密码"
 
 ## Demo 导航
 
-| Demo | 主题 | 入口 |
-| --- | --- | --- |
-| `demo1` | 最小 LLM 调用 | [demo1/README.md](demo1/README.md) |
-| `demo2` | 多轮对话与短期记忆 | [demo2/README.md](demo2/README.md) |
-| `demo3` | Tool Calling 与文件工具 | [demo3/README.md](demo3/README.md) |
-| `demo4` | 显式规划与状态推进 | [demo4/README.md](demo4/README.md) |
-| `demo5` | ReAct 风格 Agent 循环 | [demo5/README.md](demo5/README.md) |
-| `demo6` | 最小 Agent 框架抽象 | [demo6/README.md](demo6/README.md) |
-| `demo7` | 简化版 Coding Agent | [demo7/README.md](demo7/README.md) |
-| `demo8` | 固定节点编排的 Workflow Agent | [demo8/README.md](demo8/README.md) |
-| `demo9` | 带人工审批的 HITL Workflow | [demo9/README.md](demo9/README.md) |
-| `demo10` | 基于 pgvector 的 RAG Agent | [demo10/README.md](demo10/README.md) |
-| `demo11` | 基于 MCP Server 的工具接入 | [demo11/README.md](demo11/README.md) |
+| Demo     | 入口                                   | 主题                      |
+| -------- | ------------------------------------ | ----------------------- |
+| `demo1`  | [demo1/README.md](demo1/README.md)   | 最小 LLM 调用               |
+| `demo2`  | [demo2/README.md](demo2/README.md)   | 多轮对话与短期记忆               |
+| `demo3`  | [demo3/README.md](demo3/README.md)   | Tool Calling 与文件工具      |
+| `demo4`  | [demo4/README.md](demo4/README.md)   | 显式规划与状态推进               |
+| `demo5`  | [demo5/README.md](demo5/README.md)   | ReAct 风格 Agent 循环       |
+| `demo6`  | [demo6/README.md](demo6/README.md)   | 最小 Agent 框架抽象           |
+| `demo7`  | [demo7/README.md](demo7/README.md)   | 简化版 Coding Agent        |
+| `demo8`  | [demo8/README.md](demo8/README.md)   | 固定节点编排的 Workflow Agent  |
+| `demo9`  | [demo9/README.md](demo9/README.md)   | 带人工审批的 HITL Workflow    |
+| `demo10` | [demo10/README.md](demo10/README.md) | 基于 pgvector 的 RAG Agent |
+| `demo11` | [demo11/README.md](demo11/README.md) | 基于 MCP Server 的工具接入     |
 
 ## 推荐学习路线
 
